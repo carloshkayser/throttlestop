@@ -13,15 +13,27 @@ If this tool works, _great_! However, no guarantees are made that it won't haste
 ![XKCD Workflow](https://imgs.xkcd.com/comics/workflow.png)
 
 ## Installation
+
 Requires `msr-tools`:
-`sudo apt install msr-tools`
 
-Install tool with 
-`sudo pip3 install throttlestop`
+```bash
+sudo apt install msr-tools
+```
 
-Install service with 30 second interval and 4 minute delay using 
-`sudo throttlestop-install-service -i 30s -d 4min`,
-and configure the service using the interactive prompt (it will find the python binary with `sys.executable`):
+Install tool with:
+
+```bash
+sudo pip3 install throttlestop
+```
+
+Install service with 30 second interval and 4 minute delay using:
+
+```bash
+sudo python3 -m throttlestop.install -i 30s -d 4min
+```
+
+Now, configure the service using the interactive prompt (it will find the python binary with `sys.executable`):
+
 ```bash
 Enter systemd configuration lines:
 /usr/bin/python3 -m throttlestop voltage "{\"cache\": -149, \"cpu\": -149}"
@@ -30,16 +42,18 @@ Enter systemd configuration lines:
 Finished configuring service!
 ```
 
-Activate service with
+Activate service with:
+
 ```bash
-systemctl daemon-reload
-systemctl enable throttlestop
-systemctl start throttlestop
-systemctl enable throttlestop.timer
-systemctl start throttlestop.timer
+sudo systemctl daemon-reload
+sudo systemctl enable throttlestop
+sudo systemctl start throttlestop
+sudo systemctl enable throttlestop.timer
+sudo systemctl start throttlestop.timer
 ```
 
 ## API
+
 `sudo throttlestop SECTION [JSON-STRING]`,
 
 where `SECTION` is one of (`tdp`, `voltage`, `temperature`). Provide JSON `JSON-STRING` argument to set the `SECTION` value, or omit it to read (as a JSON string).
